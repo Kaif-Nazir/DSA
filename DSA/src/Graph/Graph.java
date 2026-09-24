@@ -86,7 +86,6 @@ public class Graph {
             nodes.get(edges[ind][1]).add(edges[ind][0]);
         }
 
-
         for(int ind = 0 ; ind < V ; ind++){
             if(!vis[ind]){
                 if(undirectedGraphBFS(nodes , vis , ind))
@@ -120,7 +119,21 @@ public class Graph {
         }
         return false;
     }
+    boolean dfs(List<List<Integer>> allNodes , boolean vis[] ,int node , int parent){
 
+        vis[node] = true;
+
+        for(int connNode : allNodes.get(node)){
+            if(!vis[connNode]){
+                if(dfs(allNodes , vis , connNode , node))
+                    return true;
+            }
+            else if(connNode != parent){
+                return true;
+            }
+        }
+        return false;
+    }
     // Directed Graph -> DFS ,  Have PathVis and Vis and mark and unmark PathVis when returning
     public boolean isCyclicDirected(int V, int[][] edges) {
         // code here

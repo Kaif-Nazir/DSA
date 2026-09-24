@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -182,9 +183,25 @@ public class math {
 
         System.out.println(s1);
         System.out.println(count);         */
-    
+    printNumFromFront(1234);
     
 }
+    static void printNumFromFront(int n ){
+
+        int pow = 1;
+
+        while(pow < n)
+            pow *= 10;
+        pow /= 10;
+        while(pow > 0){
+
+            System.out.println(n/pow);
+            n %= pow;
+            pow /= 10;
+
+        }
+
+    }
     static void sieve(int n ,boolean  primes[]){
 
         for(int i = 2 ; i*i <= n ; i++){
