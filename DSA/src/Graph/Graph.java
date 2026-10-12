@@ -119,13 +119,13 @@ public class Graph {
         }
         return false;
     }
-    boolean dfs(List<List<Integer>> allNodes , boolean vis[] ,int node , int parent){
+    boolean undirectedDFS(List<List<Integer>> allNodes , boolean vis[] ,int node , int parent){
 
         vis[node] = true;
 
         for(int connNode : allNodes.get(node)){
             if(!vis[connNode]){
-                if(dfs(allNodes , vis , connNode , node))
+                if(undirectedDFS(allNodes , vis , connNode , node))
                     return true;
             }
             else if(connNode != parent){
@@ -134,6 +134,7 @@ public class Graph {
         }
         return false;
     }
+
     // Directed Graph -> DFS ,  Have PathVis and Vis and mark and unmark PathVis when returning
     public boolean isCyclicDirected(int V, int[][] edges) {
         // code here
@@ -255,6 +256,159 @@ public class Graph {
             }
             ans.add(currNode);
         }
+    }
+
+    // Shortest Path in DAG DFS
+    public ArrayList<Integer> shortestPath(int V, int[][] edges) {
+        // Code here
+        List<List<int[]>> adjList = new ArrayList<>();
+        int len = edges.length;
+
+        for(int ind = 0 ; ind < V ; ind++)
+            adjList.add(new ArrayList<>());
+
+
+        for(int ind = 0 ; ind < len ; ind++){
+            adjList.get(edges[ind][0])
+                    .add(new int[]{edges[ind][1] , edges[ind][2]});
+        }
+
+        Stack<Integer> stack = new Stack<>();
+        boolean vis[] = new boolean[V];
+
+        for(int ind = 0 ; ind < V ; ind++){
+            if(!vis[ind]){
+                topoSort(adjList , vis , stack , ind);
+            }
+        }
+        int dist[] = new int [V];
+        Arrays.fill(dist , Integer.MAX_VALUE);
+        dist[0] = 0;
+
+        fillDist(adjList ,stack , dist);
+
+        for (int i = 0; i < V; i++) {
+            if (dist[i] == Integer.MAX_VALUE)
+                dist[i] = -1;
+        }
+
+        ArrayList<Integer> ans = new ArrayList<>();
+        for (int d : dist)
+            ans.add(d);
+
+        return ans;
+    }
+    void topoSort(List<List<int[]>> adjList , boolean vis[] , Stack<Integer> stack , int node){
+
+        vis[node] = true;
+
+        for(int connNode[] : adjList.get(node)){
+
+            if(!vis[connNode[0]])
+                topoSort(adjList , vis , stack , connNode[0]);
+        }
+        stack.push(node);
+        return;
+    }
+    void fillDist(List<List<int[]>> adjList , Stack<Integer> stack , int dist[]){
+
+        while(!stack.isEmpty()){
+            int node = stack.pop();
+            if (dist[node] == Integer.MAX_VALUE)
+                continue;
+            for(int[] edge : adjList.get(node)){
+
+                int next = edge[0];
+                int weight = edge[1];
+                dist[next] = Math.min(dist[next]  , dist[node]+weight);
+            }
+        }
+    }
+
+    // Shortest Path in DAG BFS
+    public ArrayList<Integer> shortestPathDAGBfs(int V, int[][] edges) {
+
+        List<List<int[]>> adjList = new ArrayList<>();
+
+        for(int i = 0; i < V; i++)
+            adjList.add(new ArrayList<>());
+
+        for(int[] edge : edges) {
+            adjList.get(edge[0])
+                    .add(new int[]{edge[1], edge[2]});
+        }
+
+        int[] dist = new int[V];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[0] = 0;
+
+        bfsAndUpdate(adjList, dist, 0);
+
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        for(int d : dist)
+            ans.add(d == Integer.MAX_VALUE ? -1 : d);
+
+        return ans;
+    }
+    void bfsAndUpdate(List<List<int[]>> adjList, int[] dist, int node) {
+
+        Queue<Integer> nodes = new ArrayDeque<>();
+        nodes.offer(node);
+
+        while(!nodes.isEmpty()) {
+
+            int currNode = nodes.poll();
+
+            for(int[] conn : adjList.get(currNode)) {
+
+                int next = conn[0];
+                int weight = conn[1];
+
+                if(dist[currNode] + weight < dist[next]) {
+                    dist[next] = dist[currNode] + weight;
+                    nodes.offer(next);
+                }
+            }
+        }
+    }
+
+    // Directed Graph Unit Weights BFS
+    public int shortestPathUnDirected(int V, int[][] edges, int src, int dest){
+        // code here
+
+        List<List<Integer>> node = new ArrayList<>();
+
+        for(int ind = 0 ; ind < V ; ind++)
+            node.add(new ArrayList<>());
+
+        for(int ind = 0 ; ind < edges.length ; ind++){
+            node.get(edges[ind][0]).add(edges[ind][1]);
+            node.get(edges[ind][1]).add(edges[ind][0]);
+        }
+
+
+        int dist[] = new int[V];
+        Arrays.fill(dist , Integer.MAX_VALUE);
+        dist[src] = 0;
+
+        Queue<int[]> nodes = new ArrayDeque<>();
+        nodes.offer(new int []{src , 0});
+
+        while(!nodes.isEmpty()){
+
+            int currNode = nodes.peek()[0];
+            int currNodeWght = nodes.poll()[1];
+
+            for(int conn : node.get(currNode)){
+
+                if (dist[conn] == Integer.MAX_VALUE) {
+                    dist[conn] = currNodeWght + 1;
+                    nodes.offer(new int[]{conn, currNodeWght + 1});
+                }
+            }
+        }
+        return dist[dest] == Integer.MAX_VALUE ? -1 : dist[dest];
     }
 
 

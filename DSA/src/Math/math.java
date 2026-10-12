@@ -25,93 +25,102 @@ public class math {
     public static void main(String ... args)    {
 
 
-    /* int n = 153;                                                            // ArmStrong Num (Sum Of num When Raised To Pow of No. of Digits == Main Num)
-    int k = n;
-    int pow = (int)(Math.log10(n)+1);
-    int res = 0;
-    while(n > 0){
-        res += (int)Math.pow(n%10 , pow);
-        n /= 10;
+    /* int n = 153;
+int k = n;
+int pow = (int)(Math.log10(n)+1);
+int res = 0;
+while(n > 0){
+    res += (int)Math.pow(n%10 , pow);
+    n /= 10;
+}
+System.out.println(res == k ? true : false); */                                                                     // ArmStrong Num (Sum Of num When Raised To Pow of No. of Digits == Main Num)
+
+    /* int n = 36;
+for(int i = 2; i < n ; i++){
+    if(n % i == 0)
+        System.out.println("Not Prime");
+} */                                                                     // Check Prime Brute
+
+    /* int n = 6;
+for(int i = 2; i < (int)Math.ceil(Math.sqrt(n)) ; i++){
+    if(n % i == 0){
+        System.out.println("Not Prime");
+        break;
     }
-    System.out.println(res == k ? true : false); */
-    /* int n = 36;                                                             // Check Prime Brute
-        for(int i = 2; i < n ; i++){
-        if(n % i == 0)
-        System.out.println("Not Prime");
-         */
-    /* int n = 6;                                                             // Check Prime Oprimized
-       for(int i = 2; i < (int)Math.ceil(Math.sqrt(n)) ; i++){
-        if(n % i == 0){
-        System.out.println("Not Prime");
-        break;    
-        }
-       } */
-        /*while (b != 0) {                                                  // GCD By Euclidean
-            int temp = b;
-            b = a % b;
-            a = temp;
-        }
-        return Math.abs(a);*/
-    /* int n = 40;                                                             // All Primes Till 40 Optimize ( Sieve Of Eratosthenes)
-        boolean chk[] = new boolean[n+1];
-        sieve( n, chk);
-        for(int i = 2; i < chk.length ; i++){
-            if(!chk[i])
+} */                                                                     // Check Prime Optimized
+
+    /* while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return Math.abs(a); */                                                                     // GCD By Euclidean
+
+    /* int n = 40;
+    boolean chk[] = new boolean[n+1];
+    sieve(n, chk);
+    for(int i = 2; i < chk.length ; i++){
+        if(!chk[i])
             System.out.println(i + " is Prime ");
-        } */
-    /* int n = 8;                                                              // Sqrt
-        for(int i = 1; i <= n ; i++){
-            if(i*i >= n){
-                System.out.println(i);
-                break;
-            }
+    } */                                                                     // All Primes Till 40 Optimize (Sieve Of Eratosthenes)
 
-        } */
+    /* int n = 8;
+    for(int i = 1; i <= n ; i++){
+        if(i*i >= n){
+            System.out.println(i);
+            break;
+        }
+    } */                                                                     // Sqrt
+
     /* int start = 1;
-       for( int end = n; start < end ;){
+    for(int end = n; start < end ;){
+        int mid = start + end >>> 1;
+        int potAns = mid*mid;
 
-            int mid = start + end >>> 1;
-            int potAns = mid*mid;
-            
-            if(potAns == n){
+        if(potAns == n){
             System.out.println(mid);
             break;
-            }
-            else if(potAns < n ){
-                start = mid+1;
-            }else{
-                end = mid;
-            }
-       }
-       System.out.println(start); */
-    /* int n = 8;                                                              // Sqrt Precision
+        }
+        else if(potAns < n ){
+            start = mid+1;
+        }else{
+            end = mid;
+        }
+    }
+    System.out.println(start); */                                                                     // Sqrt Binary Search
+
+    /* int n = 8;
     int p = 3;
     System.out.printf("%.3f",sqrtPre(n, 10));
-    System.out.println(sqrtPre(n, 10)); */
-    /* int n = 8;                                                              // Sqrt Newton Raphson
-    System.out.println(newtonRaph(n)); */
-    /* int k = 20;                                                             // Factor O(N)
+    System.out.println(sqrtPre(n, 10)); */                                                                     // Sqrt Precision
+
+    /* int n = 8;
+    System.out.println(newtonRaph(n)); */                                                                     // Sqrt Newton Raphson
+
+    /* int k = 20;
     for(int i = 1 ; i <= 20 ; i++){
         if(k % i == 0)
-        System.out.println("Its A Factor " + i);
-    } */
-    /* int k = 36;                                                             // Factor O(Math.sqrt(n))
+            System.out.println("Its A Factor " + i);
+    } */                                                                     // Factor O(N)
+
+    /* int k = 36;
     for(int i = 1 ; i <= (int)Math.sqrt(k) ; i++){
         if(k % i == 0){
-            if(k/i == i)                // For 6 
-            System.out.println(i);
+            if(k/i == i)
+                System.out.println(i);
             else
-            System.out.println(i + " " + k/i);
+                System.out.println(i + " " + k/i);
         }
+    } */                                                                     // Factor O(Math.sqrt(n))
 
-    } */
-    /* int a = 20;                                                             // Common Factor
+    /* int a = 20;
     int b = 10;
     for(int i = 1; i <= a ; i++){
         if(a%i == 0 && b%i == 0)
-        System.out.println(i);
-    } */
-    /* int aa = 224;                                                           // Highest Common Fator
+            System.out.println(i);
+    } */                                                                     // Common Factor
+
+    /* int aa = 224;
     int bb = 105;
     int c = 0;
     for(int i = aa ; i >= 1; i--){
@@ -120,72 +129,63 @@ public class math {
             break;
         }else c++;
     }
-    System.out.println(c); */
-    /* int a = 224;                                                            // HCF?GCD BY EUCLIDEAN TH --> gcd(a,b) == gcd(a-b , b) where a>b and when at last is zero the other is gcd
+    System.out.println(c); */                                                                     // Highest Common Factor
+
+    /* int a = 224;
     int b = 105;
-    int k = a%b;
-    int count = 0;
-    for(int i = b ; b >= 1 ; i--){
-        if(k%i == 0 && b%i == 0){
-            System.out.println(i);
-            break;
-        }else
-        count++;
-    }
-    System.out.println(count); */
-    /* int a = 224;                                                            // GCD by Recursion
-       int b = 105;
-       System.out.println(gcd(a, b)); */
-    /* int a = 17 , b = 19;                                                    // LCM --> Least Number That Divides Both A & B --> a*b/gcd
+    System.out.println(gcd(a, b)); */                                                                     // GCD By Recursion
+
+    /* int a = 17 , b = 19;
     int k = gcd(a, b);
-    System.out.println((a*b) / k); */
-    /* int n = 1989;                                                           // Super Digit (Sum Of All Number Recursion until num becomes < 10) O(LogN)
-    // 1 + 9 + 8 + 9 = 27 
-    // 2 + 7 == 9
-    System.out.println(superDigit(n));         */
-    /* int num = 9;                                                            // Super Digit O(1)
-    System.out.printf(  "%d", (num % 9 != 0) ? num % 9 : (num != 0 ? 9 : 0));
+    System.out.println((a*b) / k); */                                                                     // LCM (a*b/gcd)
+
+    /* int n = 1989;
+    System.out.println(superDigit(n)); */                                                                     // Super Digit (Recursion) O(LogN)
+
+    /* int num = 9;
+    System.out.printf("%d", (num % 9 != 0) ? num % 9 : (num != 0 ? 9 : 0));
     System.out.println();
-    System.out.println(superDigit(num)); */
-    /* int a = 3;                                                              // Swap Tricks
+    System.out.println(superDigit(num)); */                                                                     // Super Digit O(1)
+
+    /* int a = 3;
     int b = 5;
-    a  = a+b - (b=a);
+    a = a+b - (b=a);
     System.out.println(a);
-    System.out.println(b); */
-    /* int count = 0;                                                          // Unique Prime Factors
-        Set<Integer> s1 = new HashSet<>();
+    System.out.println(b); */                                                                     // Swap Tricks
 
-        int n = 104;
+    /* int count = 0;
+    Set<Integer> s1 = new HashSet<>();
+    int n = 104;
 
-        if(n%2 == 0){
-
-            count++;
-            s1.add(2);
-            while(n%2==0)
+    if(n%2 == 0){
+        count++;
+        s1.add(2);
+        while(n%2==0)
             n /= 2;
+    }
 
-        }
-
-        for(int i = 3; i*i <= n ; i+=2){
-
-            if(n%i == 0){
-                s1.add(i);
-                count++;
-                while(n%i == 0){
-                    n /= i;
-                }
+    for(int i = 3; i*i <= n ; i+=2){
+        if(n%i == 0){
+            s1.add(i);
+            count++;
+            while(n%i == 0){
+                n /= i;
             }
         }
-        if(n > 0){
-            count++;
-            s1.add(n);
-        }
+    }
 
-        System.out.println(s1);
-        System.out.println(count);         */
-    printNumFromFront(1234);
-    
+    if(n > 1){
+        count++;
+        s1.add(n);
+    }
+
+    System.out.println(s1);
+    System.out.println(count); */                                                                     // Unique Prime Factors
+
 }
+
+
+
     static void printNumFromFront(int n ){
 
         int pow = 1;
